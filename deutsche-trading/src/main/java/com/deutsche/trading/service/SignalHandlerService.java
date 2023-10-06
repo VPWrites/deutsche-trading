@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.deutsche.trading.exception.DeutscheTradingException;
 import com.deutsche.trading.handler.SignalHandler;
+import com.deutsche.trading.util.Messages;
 import com.deutsche.trading.util.Signal;
 
 @Service
@@ -39,8 +40,8 @@ public class SignalHandlerService {
 		try {
 			handler.handleSignal(signal);
 		} catch (Exception e) {
-			logger.error("Error occurred while handling signal: " + signal, e);
-			throw new DeutscheTradingException("Error occurred while handling signal: " + signal, e);
+			logger.error(Messages.HANDLING_SIGNAL_FAILED + signal, e);
+			throw new DeutscheTradingException(Messages.HANDLING_SIGNAL_FAILED + signal, e);
 		}
 	}
 
@@ -54,9 +55,8 @@ public class SignalHandlerService {
 		if (matcher.find()) {
 			return Integer.parseInt(matcher.group());
 		} else {
-			String errorMessage = String.format("Invalid signal handler bean name: %s", beanName);
-			logger.error(errorMessage);
-			throw new DeutscheTradingException(errorMessage);
+			logger.error(Messages.INVALID_SIGNAL, beanName);
+			throw new DeutscheTradingException(Messages.INVALID_SIGNAL + beanName);
 		}
 	}
 }

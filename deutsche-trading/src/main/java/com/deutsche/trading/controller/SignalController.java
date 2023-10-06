@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.deutsche.trading.service.SignalHandlerService;
+import com.deutsche.trading.util.Messages;
 
 @RestController
 @RequestMapping("/trading")
@@ -25,6 +26,6 @@ public class SignalController {
     public ResponseEntity<String> fetchSignal(@RequestParam("signal") int signalValue) {
         
         signalHandlerService.handleSignal(signalValue);
-        return ResponseEntity.status(HttpStatus.OK).body("Signal received");
+        return ResponseEntity.status(HttpStatus.OK).body(Messages.SIGNAL_RECEIVED);
     }
 }
