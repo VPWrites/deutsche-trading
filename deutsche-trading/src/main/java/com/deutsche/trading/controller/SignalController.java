@@ -15,7 +15,10 @@ import com.deutsche.trading.util.Messages;
 @RequestMapping("/trading")
 public class SignalController {
 
-    private final SignalHandlerService signalHandlerService;
+    private static final int MIN_SIGNAL_VALUE = 0;
+	private static final int MAX_SIGNAL_VALUE = 3;
+	
+	private final SignalHandlerService signalHandlerService;
 
     @Autowired
     public SignalController(SignalHandlerService signalHandlerService) {
@@ -25,7 +28,18 @@ public class SignalController {
     @PostMapping("/fetch-signal")
     public ResponseEntity<String> fetchSignal(@RequestParam("signal") int signalValue) {
         
-        signalHandlerService.handleSignal(signalValue);
-        return ResponseEntity.status(HttpStatus.OK).body(Messages.SIGNAL_RECEIVED);
-    }
-}
+    	 if (isValidSignal(signalValue)) {
+             signalHandlerService.handleSignal(signalValue);
+             return ResponseEntity.status(HttpStatus.OK).body(Messages.SIGNAL_RECEIVED);
+         } else {
+             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Messages.SIGNAL_NOT_FOUND);
+         }
+     }
+
+     private boolean isValidSignal(int signalValue) {
+         // Add logic to validate the signal value, return true if valid, false otherwise
+         // For example, check if signalValue is within a certain range or meets specific criteria.
+         // Return true if valid, false if invalid.
+         return signalValue >= MIN_SIGNAL_VALUE && signalValue <= MAX_SIGNAL_VALUE;
+     }
+ }

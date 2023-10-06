@@ -14,6 +14,6 @@ public class Messages {
 	
 	public static final String HANDLING_SIGNAL_FAILED = "Error occurred while handling signal: ";
 	
-	public static final String INVALID_SIGNAL = "Invalid signal handler bean name: ";
+	public static final String INVALID_SIGNAL = "Invalid signal handler bean name. ";
 
 }

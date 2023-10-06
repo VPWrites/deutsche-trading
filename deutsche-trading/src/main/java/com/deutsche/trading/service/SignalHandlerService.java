@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.deutsche.trading.exception.DeutscheTradingException;
+import com.deutsche.trading.exception.SignalNotFoundException;
 import com.deutsche.trading.handler.SignalHandler;
 import com.deutsche.trading.util.Messages;
 import com.deutsche.trading.util.Signal;
@@ -55,8 +56,8 @@ public class SignalHandlerService {
 		if (matcher.find()) {
 			return Integer.parseInt(matcher.group());
 		} else {
-			logger.error(Messages.INVALID_SIGNAL, beanName);
-			throw new DeutscheTradingException(Messages.INVALID_SIGNAL + beanName);
+			logger.error(Messages.INVALID_SIGNAL);
+			throw new SignalNotFoundException(Messages.INVALID_SIGNAL);
 		}
 	}
 }

@@ -1,5 +1,7 @@
 package com.deutsche.trading.util;
 
+import com.deutsche.trading.exception.SignalNotFoundException;
+
 public enum Signal {
     SIGNAL1(1),
     SIGNAL2(2),
@@ -22,6 +24,6 @@ public enum Signal {
                 return signal;
             }
         }
-        return DEFAULT; // Default signal if the provided integer does not match any enum constant
+       throw new SignalNotFoundException(Messages.INVALID_SIGNAL);
     }
 }
